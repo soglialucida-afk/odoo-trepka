@@ -1,176 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <template id="trepka_layout" name="Trepka Layout" inherit_id="website.layout">
-    <xpath expr="//link[last()]" position="after">
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-    </xpath>
-  </template>
+  <record id="trepka_layout" model="ir.ui.view">
+    <field name="name">trepka_maserka.layout</field>
+    <field name="type">qweb</field>
+    <field name="inherit_id" ref="website.layout"/>
+    <field name="arch" type="xml">
+      <xpath expr="//link[last()]" position="after">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+      </xpath>
+    </field>
+  </record>
 
-  <template id="trepka_homepage" name="Trepka Maserka Domov" page="True">
-    <t t-call="website.layout">
-      <div id="wrap">
+  <record id="trepka_homepage" model="ir.ui.view">
+    <field name="name">trepka_maserka.homepage</field>
+    <field name="type">qweb</field>
+    <field name="arch" type="xml">
+      <t t-name="trepka_maserka.trepka_homepage">
+        <t t-call="website.layout">
+          <div id="wrap">
 
-        <header class="tm-header" id="tm-header">
-          <div class="tm-header-inner">
-            <div><span class="tm-logo-text">Trepka Maserka<span class="tm-logo-sub">d.o.o. · Celje</span></span></div>
-            <nav class="tm-nav">
-              <ul>
-                <li><a href="#tm-storitve">Storitve</a></li>
-                <li><a href="#tm-o-nas">O nas</a></li>
-                <li><a href="#tm-cenik">Cenik</a></li>
-                <li><a href="#tm-kontakt">Kontakt</a></li>
-              </ul>
-            </nav>
-          </div>
-        </header>
-
-        <section class="tm-hero">
-          <div class="tm-slide active" style="background-image:linear-gradient(rgba(10,3,0,.42),rgba(10,3,0,.42)),url('/trepka_maserka/static/img/slika0.jpg');background-size:cover;background-position:center;">
-            <div class="tm-slide-content">
-              <span class="tm-slide-eyebrow">Salon Trepka Maserka · Celje</span>
-              <h1 class="tm-slide-title">Frizerske &amp; Kozmetične Storitve</h1>
-              <div class="tm-slide-rule"><div class="tm-slide-gem"></div></div>
-              <p class="tm-slide-text">Profesionalno striženje, barvanje, nega obraza in telesa.</p>
-              <a href="/appointment" class="btn-tm-primary">Rezervirajte termin</a>
-            </div>
-          </div>
-          <div class="tm-slide" style="background-image:linear-gradient(rgba(10,3,0,.48),rgba(10,3,0,.48)),url('/trepka_maserka/static/img/slika4.jpg');background-size:cover;background-position:center;">
-            <div class="tm-slide-content">
-              <span class="tm-slide-eyebrow">Tradicija in kakovost</span>
-              <h1 class="tm-slide-title">Umetnost nege in sprostitve</h1>
-              <div class="tm-slide-rule"><div class="tm-slide-gem"></div></div>
-              <p class="tm-slide-text">Strokovno osebje, topel sprejem, nepozabna izkušnja.</p>
-              <a href="/appointment" class="btn-tm-outline" style="color:white;border-color:rgba(255,255,255,.65);">Prijavite se zdaj</a>
-            </div>
-          </div>
-        </section>
-
-        <section id="tm-storitve" class="tm-section tm-section-parchment">
-          <div class="tm-container">
-            <div class="orn-header">
-              <span class="eyebrow">Kar ponujamo</span>
-              <div class="orn-rule"><div class="orn-diamond"></div></div>
-              <h2>Naše storitve</h2>
-              <p>Širok nabor frizerskih in kozmetičnih tretmajev, prilagojenih vam.</p>
-            </div>
-            <div class="tm-services-grid">
-              <div class="tm-service-card"><div class="tm-service-card-in">
-                <div class="tm-service-icon"><i class="fas fa-star" style="font-size:32px;color:#8a2926;"></i></div>
-                <div class="tm-service-gem"></div>
-                <h3>Depilacija z voskom</h3>
-                <div class="tm-service-rule"></div>
-                <p>Topel in hladni vosek za občutljive predele. Hitro, učinkovito in udobno.</p>
-              </div></div>
-              <div class="tm-service-card"><div class="tm-service-card-in">
-                <div class="tm-service-icon"><i class="fas fa-spa" style="font-size:32px;color:#8a2926;"></i></div>
-                <div class="tm-service-gem"></div>
-                <h3>Nega obraza</h3>
-                <div class="tm-service-rule"></div>
-                <p>Individualni pristop za vsak tip kože. Od anti-age do aknaste kože.</p>
-              </div></div>
-              <div class="tm-service-card"><div class="tm-service-card-in">
-                <div class="tm-service-icon"><i class="fas fa-cut" style="font-size:32px;color:#8a2926;"></i></div>
-                <div class="tm-service-gem"></div>
-                <h3>Threading</h3>
-                <div class="tm-service-rule"></div>
-                <p>Natančno oblikovanje obrvi z nitko. Tudi sprehodi brez naročila.</p>
-              </div></div>
-              <div class="tm-service-card"><div class="tm-service-card-in">
-                <div class="tm-service-icon"><i class="fas fa-hand-sparkles" style="font-size:32px;color:#8a2926;"></i></div>
-                <div class="tm-service-gem"></div>
-                <h3>Manikura in pedikura</h3>
-                <div class="tm-service-rule"></div>
-                <p>OPI in Artistic laki, geliranje, IBX tretma za krepitev nohtov.</p>
-              </div></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="tm-cenik" class="tm-section tm-section-cream">
-          <div class="tm-container">
-            <div class="orn-header">
-              <span class="eyebrow">Storitve po meri</span>
-              <div class="orn-rule"><div class="orn-diamond"></div></div>
-              <h2>Cenik</h2>
-            </div>
-            <div class="tm-pricing-grid">
-              <div class="tm-price-card"><div class="tm-price-card-in">
-                <div class="tm-price">od <small>€</small>28</div><div class="tm-price-rule"></div>
-                <h3>Striženje las</h3>
-                <ul><li>Posvet</li><li>Pranje + masaža glave</li><li>Striženje</li><li>Oblikovanje s fenom</li></ul>
-              </div></div>
-              <div class="tm-price-card"><div class="tm-price-card-in">
-                <div class="tm-price">od <small>€</small>15</div><div class="tm-price-rule"></div>
-                <h3>Tretmaji za lase</h3>
-                <ul><li>Olaplex zaščita</li><li>Maroško olje</li><li>Keratinsko ravnanje</li></ul>
-              </div></div>
-              <div class="tm-price-card"><div class="tm-price-card-in">
-                <div class="tm-price">od <small>€</small>15</div><div class="tm-price-rule"></div>
-                <h3>Masaže</h3>
-                <ul><li>Stol masaža</li><li>Švedska + vroči kamni</li><li>Športna masaža</li></ul>
-              </div></div>
-              <div class="tm-price-card"><div class="tm-price-card-in">
-                <div class="tm-price">od <small>€</small>15</div><div class="tm-price-rule"></div>
-                <h3>Nega nohtov</h3>
-                <ul><li>Oblikovanje in lak</li><li>OPI gel lak</li><li>Manikura / Pedikura</li></ul>
-              </div></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="tm-section tm-section-dark">
-          <div class="tm-container">
-            <div style="text-align:center;margin-bottom:48px;"><h2 style="font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;font-weight:400;color:#fdf8f2;">Kaj pravijo naše stranke</h2></div>
-            <div class="tm-testimonial-grid">
-              <div class="tm-testimonial-item"><div class="tm-testimonial-in">
-                <div class="tm-testimonial-quote">"</div>
-                <p>Najboljša izkušnja s striženjem in poudarki. Prijazno osebje, definitivno se vračam.</p>
-                <h4>— Maja K.</h4>
-              </div></div>
-              <div class="tm-testimonial-item"><div class="tm-testimonial-in">
-                <div class="tm-testimonial-quote">"</div>
-                <p>Depilacija je bila hitra in brez bolečin. Že leta sem zvesta stranka.</p>
-                <h4>— Ana P.</h4>
-              </div></div>
-              <div class="tm-testimonial-item"><div class="tm-testimonial-in">
-                <div class="tm-testimonial-quote">"</div>
-                <p>Odlična masaža, sprostila sem se po dolgem času. Priporočam vsem.</p>
-                <h4>— Marko Z.</h4>
-              </div></div>
-            </div>
-          </div>
-        </section>
-
-        <footer class="tm-footer" id="tm-kontakt">
-          <div class="tm-container">
-            <div class="tm-footer-grid">
-              <div>
-                <h3>Trepka Maserka d.o.o.</h3>
-                <p>Kosovelova ulica 7<br/>3000 Celje, Slovenija</p>
-                <p style="margin-top:10px;"><a href="tel:+38634567890">+386 (0)3 456 7890</a><br/><a href="mailto:info@trepka-maserka.si">info@trepka-maserka.si</a></p>
+            <header class="tm-header" id="tm-header">
+              <div class="tm-header-inner">
+                <div><span class="tm-logo-text">Trepka Maserka<span class="tm-logo-sub">d.o.o. · Celje</span></span></div>
+                <nav class="tm-nav">
+                  <ul>
+                    <li><a href="#tm-storitve">Storitve</a></li>
+                    <li><a href="#tm-o-nas">O nas</a></li>
+                    <li><a href="#tm-cenik">Cenik</a></li>
+                    <li><a href="#tm-kontakt">Kontakt</a></li>
+                  </ul>
+                </nav>
               </div>
-              <div>
-                <h3>Delovni čas</h3>
-                <p>Pon–Pet: 9:00–20:00<br/>Sobota: 9:00–15:00<br/>Nedelja: Zaprto</p>
-              </div>
-              <div>
-                <h3>Sledite nam</h3>
-                <div class="tm-social">
-                  <a href="#"><i class="fab fa-facebook"></i></a>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
+            </header>
+
+            <section class="tm-hero">
+              <div class="tm-slide active" style="background-image:linear-gradient(rgba(10,3,0,.42),rgba(10,3,0,.42)),url('/trepka_maserka/static/img/slika0.jpg');background-size:cover;background-position:center;">
+                <div class="tm-slide-content">
+                  <span class="tm-slide-eyebrow">Salon Trepka Maserka · Celje</span>
+                  <h1 class="tm-slide-title">Frizerske &amp; Kozmetične Storitve</h1>
+                  <div class="tm-slide-rule"><div class="tm-slide-gem"></div></div>
+                  <p class="tm-slide-text">Profesionalno striženje, barvanje, nega obraza in telesa.</p>
+                  <a href="/appointment" class="btn-tm-primary">Rezervirajte termin</a>
                 </div>
               </div>
-            </div>
-            <div class="tm-copyright"><p>© 2025 · Trepka Maserka · Vse pravice pridržane</p></div>
+              <div class="tm-slide" style="background-image:linear-gradient(rgba(10,3,0,.48),rgba(10,3,0,.48)),url('/trepka_maserka/static/img/slika4.jpg');background-size:cover;background-position:center;">
+                <div class="tm-slide-content">
+                  <span class="tm-slide-eyebrow">Tradicija in kakovost</span>
+                  <h1 class="tm-slide-title">Umetnost nege in sprostitve</h1>
+                  <div class="tm-slide-rule"><div class="tm-slide-gem"></div></div>
+                  <p class="tm-slide-text">Strokovno osebje, topel sprejem, nepozabna izkušnja.</p>
+                  <a href="/appointment" class="btn-tm-outline" style="color:white;border-color:rgba(255,255,255,.65);">Prijavite se zdaj</a>
+                </div>
+              </div>
+            </section>
+
+            <section id="tm-storitve" class="tm-section tm-section-parchment">
+              <div class="tm-container">
+                <div class="orn-header">
+                  <span class="eyebrow">Kar ponujamo</span>
+                  <div class="orn-rule"><div class="orn-diamond"></div></div>
+                  <h2>Naše storitve</h2>
+                  <p>Širok nabor frizerskih in kozmetičnih tretmajev, prilagojenih vam.</p>
+                </div>
+                <div class="tm-services-grid">
+                  <div class="tm-service-card"><div class="tm-service-card-in">
+                    <div class="tm-service-icon"><i class="fas fa-star" style="font-size:32px;color:#8a2926;"></i></div>
+                    <div class="tm-service-gem"></div><h3>Depilacija z voskom</h3>
+                    <div class="tm-service-rule"></div>
+                    <p>Topel in hladni vosek za obcutljive predele. Hitro, ucinkovito in udobno.</p>
+                  </div></div>
+                  <div class="tm-service-card"><div class="tm-service-card-in">
+                    <div class="tm-service-icon"><i class="fas fa-spa" style="font-size:32px;color:#8a2926;"></i></div>
+                    <div class="tm-service-gem"></div><h3>Nega obraza</h3>
+                    <div class="tm-service-rule"></div>
+                    <p>Individualni pristop za vsak tip koze. Od anti-age do aknaste koze.</p>
+                  </div></div>
+                  <div class="tm-service-card"><div class="tm-service-card-in">
+                    <div class="tm-service-icon"><i class="fas fa-cut" style="font-size:32px;color:#8a2926;"></i></div>
+                    <div class="tm-service-gem"></div><h3>Threading</h3>
+                    <div class="tm-service-rule"></div>
+                    <p>Natancno oblikovanje obrvi z nitko. Tudi sprehodi brez narocila.</p>
+                  </div></div>
+                  <div class="tm-service-card"><div class="tm-service-card-in">
+                    <div class="tm-service-icon"><i class="fas fa-hand-sparkles" style="font-size:32px;color:#8a2926;"></i></div>
+                    <div class="tm-service-gem"></div><h3>Manikura in pedikura</h3>
+                    <div class="tm-service-rule"></div>
+                    <p>OPI in Artistic laki, geliranje, IBX tretma za krepitev nohtov.</p>
+                  </div></div>
+                </div>
+              </div>
+            </section>
+
+            <section id="tm-cenik" class="tm-section tm-section-cream">
+              <div class="tm-container">
+                <div class="orn-header">
+                  <span class="eyebrow">Storitve po meri</span>
+                  <div class="orn-rule"><div class="orn-diamond"></div></div>
+                  <h2>Cenik</h2>
+                  <p>Strizenje, tretmaji, masaze, nohti - vse na enem mestu.</p>
+                </div>
+                <div class="tm-pricing-grid">
+                  <div class="tm-price-card"><div class="tm-price-card-in">
+                    <div class="tm-price">od <small>EUR</small>28</div><div class="tm-price-rule"></div>
+                    <h3>Strizenje las</h3>
+                    <ul><li>Posvet</li><li>Pranje + masaza glave</li><li>Strizenje</li><li>Oblikovanje s fenom</li></ul>
+                  </div></div>
+                  <div class="tm-price-card"><div class="tm-price-card-in">
+                    <div class="tm-price">od <small>EUR</small>15</div><div class="tm-price-rule"></div>
+                    <h3>Tretmaji za lase</h3>
+                    <ul><li>Olaplex zascita</li><li>Marosko olje</li><li>Keratinsko ravnanje</li></ul>
+                  </div></div>
+                  <div class="tm-price-card"><div class="tm-price-card-in">
+                    <div class="tm-price">od <small>EUR</small>15</div><div class="tm-price-rule"></div>
+                    <h3>Masaze</h3>
+                    <ul><li>Stol masaza</li><li>Svedska + vroci kamni</li><li>Sportna masaza</li></ul>
+                  </div></div>
+                  <div class="tm-price-card"><div class="tm-price-card-in">
+                    <div class="tm-price">od <small>EUR</small>15</div><div class="tm-price-rule"></div>
+                    <h3>Nega nohtov</h3>
+                    <ul><li>Oblikovanje in lak</li><li>OPI gel lak</li><li>Manikura / Pedikura</li></ul>
+                  </div></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="tm-section tm-section-dark">
+              <div class="tm-container">
+                <div style="text-align:center;margin-bottom:48px;">
+                  <h2 style="font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;font-weight:400;color:#fdf8f2;">Kaj pravijo nase stranke</h2>
+                </div>
+                <div class="tm-testimonial-grid">
+                  <div class="tm-testimonial-item"><div class="tm-testimonial-in">
+                    <div class="tm-testimonial-quote">"</div>
+                    <p>Najboljsa izkusnja s strizenjem in poudarki. Prijazno osebje, definitivno se vracam.</p>
+                    <h4>- Maja K.</h4>
+                  </div></div>
+                  <div class="tm-testimonial-item"><div class="tm-testimonial-in">
+                    <div class="tm-testimonial-quote">"</div>
+                    <p>Depilacija je bila hitra in brez bolecin. Ze leta sem zvesta stranka.</p>
+                    <h4>- Ana P.</h4>
+                  </div></div>
+                  <div class="tm-testimonial-item"><div class="tm-testimonial-in">
+                    <div class="tm-testimonial-quote">"</div>
+                    <p>Odlicna masaza, sprostila sem se po dolgem casu. Priporocam vsem.</p>
+                    <h4>- Marko Z.</h4>
+                  </div></div>
+                </div>
+              </div>
+            </section>
+
+            <footer class="tm-footer" id="tm-kontakt">
+              <div class="tm-container">
+                <div class="tm-footer-grid">
+                  <div>
+                    <h3>Trepka Maserka d.o.o.</h3>
+                    <p>Kosovelova ulica 7<br/>3000 Celje, Slovenija</p>
+                    <p style="margin-top:10px;"><a href="tel:+38634567890">+386 (0)3 456 7890</a><br/><a href="mailto:info@trepka-maserka.si">info@trepka-maserka.si</a></p>
+                  </div>
+                  <div>
+                    <h3>Delovni cas</h3>
+                    <p>Pon-Pet: 9:00-20:00<br/>Sobota: 9:00-15:00<br/>Nedelja: Zaprto</p>
+                  </div>
+                  <div>
+                    <h3>Sledite nam</h3>
+                    <div class="tm-social">
+                      <a href="#"><i class="fab fa-facebook"></i></a>
+                      <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="tm-copyright"><p>2025 - Trepka Maserka - Vse pravice pridrzane</p></div>
+              </div>
+            </footer>
+
+            <a href="/appointment" class="tm-book-tab">Rezervirajte termin</a>
+
           </div>
-        </footer>
-
-        <a href="/appointment" class="tm-book-tab">Rezervirajte termin</a>
-
-      </div>
-    </t>
-  </template>
+        </t>
+      </t>
+    </field>
+  </record>
 
 </odoo>
