@@ -5,7 +5,8 @@ USER root
 COPY ./trepka_maserka /mnt/extra-addons/trepka_maserka
 RUN chown -R odoo:odoo /mnt/extra-addons/
 
-RUN printf "[options]\naddons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons\ndata_dir = /var/lib/odoo\n" > /etc/odoo/odoo.conf
+RUN echo "[options]" > /etc/odoo/odoo.conf && \
+    echo "addons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons" >> /etc/odoo/odoo.conf && \
+    echo "data_dir = /var/lib/odoo" >> /etc/odoo/odoo.conf
 
 USER odoo
-# force rebuild Mon Apr 27 18:31:24 CEST 2026
