@@ -255,6 +255,24 @@ a{text-decoration:none;color:inherit}
             </footer>
 
             <a href="/appointment" class="tm-book-tab">Rezervirajte termin</a>
+            <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var slides = document.querySelectorAll('.tm-slide');
+    if (!slides.length) return;
+    var cur = 0;
+    setInterval(function() {
+        slides[cur].classList.remove('active');
+        cur = (cur + 1) % slides.length;
+        slides[cur].classList.add('active');
+    }, 5000);
+    var header = document.querySelector('.tm-header');
+    if (header) {
+        window.addEventListener('scroll', function() {
+            header.classList.toggle('shrink', window.scrollY > 50);
+        });
+    }
+});
+</script>
 
           </div>
         </t>
