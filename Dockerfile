@@ -5,7 +5,6 @@ USER root
 COPY ./trepka_maserka /mnt/extra-addons/trepka_maserka
 RUN chown -R odoo:odoo /mnt/extra-addons/
 
-# Prebriši default config
-RUN echo "[options]\naddons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons\n" > /etc/odoo/odoo.conf
+RUN printf "[options]\naddons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons\ndata_dir = /var/lib/odoo\n" > /etc/odoo/odoo.conf
 
 USER odoo
