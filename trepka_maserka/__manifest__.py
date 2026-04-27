@@ -1,6 +1,6 @@
 {
     'name': 'Trepka Maserka Theme',
-    'version': '17.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Theme/Services',
     'summary': 'Elegantna tema za frizerski in kozmetični salon',
     'author': 'Soglia Lucida',
