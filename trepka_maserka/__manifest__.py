@@ -11,7 +11,7 @@
     ],
     'assets': {
         'web.assets_frontend': [
-            'trepka_maserka/static/src/scss/theme.scss',
+            'trepka_maserka/static/src/css/theme.css',
             'trepka_maserka/static/src/js/slider.js',
         ],
     },
