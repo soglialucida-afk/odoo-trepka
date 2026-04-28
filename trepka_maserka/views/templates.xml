@@ -103,6 +103,7 @@ a{text-decoration:none;color:inherit}
 .tm-book-tab{position:fixed;bottom:20px;right:20px;background:#8a2926;color:white;padding:13px 26px;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;z-index:999;cursor:pointer;border:1px solid rgba(255,255,255,.22);transition:background .25s;text-decoration:none;display:block}
 .tm-book-tab:hover{background:#6e1e1c;color:white}
 @media(max-width:768px){.tm-nav{display:none}.tm-slide-title{font-size:2.2rem}.tm-slide-eyebrow{display:none}.tm-header{padding:16px 20px}}
+.o_footer_copyright{display:none!important}
         </style>
       </xpath>
     </field>
