@@ -66,25 +66,25 @@
 
           <div class="bk-section">
             <span class="bk-label">01 &#8212; Storitev</span>
-            <div class="service-grid">
-              <label class="service-card" onclick="selectService(this, 'relax_45')">
+            <div class="service-grid" id="service-grid">
+              <div class="service-card" data-service="relax_45">
                 <div class="service-name">Relaxacijska masa&#382;a</div>
                 <div class="service-duration">45 min</div>
-              </label>
-              <label class="service-card" onclick="selectService(this, 'swedish_60')">
+              </div>
+              <div class="service-card" data-service="swedish_60">
                 <div class="service-name">&#352;vedska masa&#382;a</div>
                 <div class="service-duration">60 min</div>
-              </label>
-              <label class="service-card" onclick="selectService(this, 'sports_90')">
+              </div>
+              <div class="service-card" data-service="sports_90">
                 <div class="service-name">&#352;portna masa&#382;a</div>
                 <div class="service-duration">90 min</div>
-              </label>
+              </div>
             </div>
           </div>
 
           <div class="bk-section" id="date-section" style="display:none">
             <span class="bk-label">02 &#8212; Datum</span>
-            <input type="date" class="date-input" id="date-picker" onchange="onDateChange(this)"/>
+            <input type="date" class="date-input" id="date-picker"/>
             <p class="date-hint">Delamo ponedeljek&#8211;sobota</p>
           </div>
 
@@ -112,108 +112,110 @@
       </div>
 
       <script>
-        var selectedService = null;
-        var selectedDate = null;
-        var selectedSlot = null;
-        var serviceNames = {
-          'relax_45': 'Relaxacijska masaza 45 min',
-          'swedish_60': 'Svedska masaza 60 min',
-          'sports_90': 'Sportna masaza 90 min'
-        };
+        (function() {
+          var selectedService = null;
+          var selectedDate = null;
+          var selectedSlot = null;
+          var serviceNames = {
+            'relax_45': 'Relaxacijska masaza 45 min',
+            'swedish_60': 'Svedska masaza 60 min',
+            'sports_90': 'Sportna masaza 90 min'
+          };
 
-        function selectService(card, service) {
-          document.querySelectorAll('.service-card').forEach(function(c) { c.classList.remove('active'); });
-          card.classList.add('active');
-          selectedService = service;
-          document.getElementById('selected-service-input').value = service;
-          document.getElementById('date-section').style.display = 'block';
-          clearSlots();
-          clearContact();
-          updateSummary();
-        }
-
-        function onDateChange(input) {
-          var val = input.value;
-          if (!val) return;
-          var d = new Date(val);
-          if (d.getDay() === 0) {
-            alert('Nedelja ni delovni dan. Prosimo izberite drug datum.');
-            input.value = '';
-            return;
+          function clearSlots() {
+            document.getElementById('slots-section').style.display = 'none';
+            document.getElementById('slots-grid').innerHTML = '';
+            selectedSlot = null;
+            document.getElementById('selected-slot-input').value = '';
           }
-          selectedDate = val;
-          document.getElementById('booking-date-hidden').value = val;
-          loadSlots();
-        }
 
-        function loadSlots() {
-          if (!selectedService || !selectedDate) return;
-          var section = document.getElementById('slots-section');
-          var grid = document.getElementById('slots-grid');
-          var loading = document.getElementById('slots-loading');
-          var empty = document.getElementById('slots-empty');
-          section.style.display = 'block';
-          loading.style.display = 'block';
-          empty.style.display = 'none';
-          grid.innerHTML = '';
-          selectedSlot = null;
-          document.getElementById('selected-slot-input').value = '';
-          clearContact();
-          fetch('/rezervacija/slots', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({jsonrpc: '2.0', method: 'call', id: 1, params: {date_str: selectedDate, service: selectedService}})
-          })
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            loading.style.display = 'none';
-            var slots = (data.result || {}).slots || [];
-            if (slots.length === 0) { empty.style.display = 'block'; return; }
-            slots.forEach(function(slot) {
-              var btn = document.createElement('button');
-              btn.type = 'button';
-              btn.className = 'slot-btn';
-              btn.textContent = slot;
-              btn.onclick = function() { selectSlot(btn, slot); };
-              grid.appendChild(btn);
+          function clearContact() {
+            document.getElementById('contact-section').style.display = 'none';
+          }
+
+          function updateSummary() {
+            var bar = document.getElementById('summary-bar');
+            var txt = document.getElementById('summary-text');
+            if (selectedService && selectedDate && selectedSlot) {
+              bar.style.display = 'block';
+              txt.innerHTML = '<span>' + serviceNames[selectedService] + '</span> &nbsp;|&nbsp; <span>' + selectedDate + '</span> &nbsp;|&nbsp; <span>' + selectedSlot + '</span>';
+            } else {
+              bar.style.display = 'none';
+            }
+          }
+
+          function loadSlots() {
+            if (!selectedService || !selectedDate) return;
+            var section = document.getElementById('slots-section');
+            var grid = document.getElementById('slots-grid');
+            var loading = document.getElementById('slots-loading');
+            var empty = document.getElementById('slots-empty');
+            section.style.display = 'block';
+            loading.style.display = 'block';
+            empty.style.display = 'none';
+            grid.innerHTML = '';
+            selectedSlot = null;
+            document.getElementById('selected-slot-input').value = '';
+            clearContact();
+            fetch('/rezervacija/slots', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({jsonrpc: '2.0', method: 'call', id: 1, params: {date_str: selectedDate, service: selectedService}})
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              loading.style.display = 'none';
+              var slots = (data.result || {}).slots || [];
+              if (slots.length === 0) { empty.style.display = 'block'; return; }
+              slots.forEach(function(slot) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'slot-btn';
+                btn.textContent = slot;
+                btn.addEventListener('click', function() {
+                  document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('active'); });
+                  btn.classList.add('active');
+                  selectedSlot = slot;
+                  document.getElementById('selected-slot-input').value = slot;
+                  document.getElementById('contact-section').style.display = 'block';
+                  updateSummary();
+                });
+                grid.appendChild(btn);
+              });
+            })
+            .catch(function() { loading.style.display = 'none'; empty.style.display = 'block'; });
+          }
+
+          document.querySelectorAll('.service-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+              document.querySelectorAll('.service-card').forEach(function(c) { c.classList.remove('active'); });
+              card.classList.add('active');
+              selectedService = card.getAttribute('data-service');
+              document.getElementById('selected-service-input').value = selectedService;
+              document.getElementById('date-section').style.display = 'block';
+              clearSlots();
+              clearContact();
+              updateSummary();
             });
-          })
-          .catch(function() { loading.style.display = 'none'; empty.style.display = 'block'; });
-        }
+          });
 
-        function selectSlot(btn, slot) {
-          document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          selectedSlot = slot;
-          document.getElementById('selected-slot-input').value = slot;
-          document.getElementById('contact-section').style.display = 'block';
-          updateSummary();
-        }
+          var datePicker = document.getElementById('date-picker');
+          datePicker.min = new Date().toISOString().split('T')[0];
+          datePicker.addEventListener('change', function() {
+            var val = datePicker.value;
+            if (!val) return;
+            var d = new Date(val);
+            if (d.getDay() === 0) {
+              alert('Nedelja ni delovni dan. Prosimo izberite drug datum.');
+              datePicker.value = '';
+              return;
+            }
+            selectedDate = val;
+            document.getElementById('booking-date-hidden').value = val;
+            loadSlots();
+          });
 
-        function updateSummary() {
-          var bar = document.getElementById('summary-bar');
-          var txt = document.getElementById('summary-text');
-          if (selectedService and selectedDate and selectedSlot) {
-            bar.style.display = 'block';
-            txt.innerHTML = '<span>' + serviceNames[selectedService] + '</span> | <span>' + selectedDate + '</span> | <span>' + selectedSlot + '</span>';
-          } else {
-            bar.style.display = 'none';
-          }
-        }
-
-        function clearSlots() {
-          document.getElementById('slots-section').style.display = 'none';
-          document.getElementById('slots-grid').innerHTML = '';
-          selectedSlot = null;
-          document.getElementById('selected-slot-input').value = '';
-        }
-
-        function clearContact() {
-          document.getElementById('contact-section').style.display = 'none';
-        }
-
-        var today = new Date().toISOString().split('T')[0];
-        document.getElementById('date-picker').min = today;
+        })();
       </script>
 
     </t>
