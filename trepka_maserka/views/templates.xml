@@ -116,6 +116,10 @@ header.o_main_navbar,#o_main_navbar,.o_main_navbar{display:none!important;height
     <field name="arch" type="xml">
       <t t-name="trepka_maserka.trepka_homepage">
         <t t-call="website.layout">
+              <t t-set="no_header" t-value="true"/>
+              <t t-set="no_footer" t-value="true"/>
+        <t t-set="no_header" t-value="true"/>
+<t t-set="no_footer" t-value="true"/>
           <div id="wrap">
 
             <header class="tm-header" id="tm-header">
