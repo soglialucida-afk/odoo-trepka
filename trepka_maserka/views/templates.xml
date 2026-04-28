@@ -143,7 +143,7 @@ header.o_main_navbar,#o_main_navbar,.o_main_navbar{display:none!important;height
                   <h1 class="tm-slide-title">Frizerske &amp; Kozmetične Storitve</h1>
                   <div class="tm-slide-rule"><div class="tm-slide-gem"></div></div>
                   <p class="tm-slide-text">Profesionalno striženje, barvanje, nega obraza in telesa.</p>
-                  <a href="/appointment" class="btn-tm-primary">Rezervirajte termin</a>
+                  <a href="/rezervacija" class="btn-tm-primary">Rezervirajte termin</a>
                 </div>
               </div>
               <div class="tm-slide" style="background-image:linear-gradient(rgba(10,3,0,.48),rgba(10,3,0,.48)),url('/trepka_maserka/static/img/slika4.jpg');background-size:cover;background-position:center;">
@@ -152,7 +152,7 @@ header.o_main_navbar,#o_main_navbar,.o_main_navbar{display:none!important;height
                   <h1 class="tm-slide-title">Umetnost nege in sprostitve</h1>
                   <div class="tm-slide-rule"><div class="tm-slide-gem"></div></div>
                   <p class="tm-slide-text">Strokovno osebje, topel sprejem, nepozabna izkušnja.</p>
-                  <a href="/appointment" class="btn-tm-outline" style="color:white;border-color:rgba(255,255,255,.65);">Prijavite se zdaj</a>
+                  <a href="/rezervacija" class="btn-tm-outline" style="color:white;border-color:rgba(255,255,255,.65);">Prijavite se zdaj</a>
                 </div>
               </div>
             </section>
@@ -276,7 +276,7 @@ header.o_main_navbar,#o_main_navbar,.o_main_navbar{display:none!important;height
               </div>
             </footer>
 
-            <a href="/appointment" class="tm-book-tab">Rezervirajte termin</a>
+            <a href="/rezervacija" class="tm-book-tab">Rezervirajte termin</a>
 
             <script type="text/javascript">
 (function() {

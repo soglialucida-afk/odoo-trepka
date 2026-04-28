@@ -4,9 +4,11 @@
     'category': 'Theme/Services',
     'summary': 'Elegantna tema za frizerski in kozmetični salon',
     'author': 'Soglia Lucida',
-    'depends': ['website'],
+    'depends': ['website', 'mail'],
     'data': [
+        'views/security/ir.model.access.csv',
         'views/templates.xml',
+        'views/booking_template.xml',
         'data/website_data.xml',
     ],
     'assets': {
