@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <g transform="translate(120, 120)">
+    <circle cx="0" cy="0" r="115" fill="none" stroke="#8a2926" stroke-width="2"/>
+    <circle cx="0" cy="0" r="107" fill="none" stroke="#c4922a" stroke-width="0.8"/>
+    <circle cx="0" cy="0" r="103" fill="none" stroke="#c4922a" stroke-width="0.3"/>
+    <circle cx="0" cy="0" r="102" fill="#1e0d07"/>
+
+    <circle cx="0" cy="-115" r="3" fill="#c4922a"/>
+    <circle cx="0" cy="115" r="3" fill="#c4922a"/>
+    <circle cx="-115" cy="0" r="3" fill="#c4922a"/>
+    <circle cx="115" cy="0" r="3" fill="#c4922a"/>
+    <circle cx="-81.3" cy="-81.3" r="2" fill="#c4922a" opacity="0.6"/>
+    <circle cx="81.3" cy="-81.3" r="2" fill="#c4922a" opacity="0.6"/>
+    <circle cx="-81.3" cy="81.3" r="2" fill="#c4922a" opacity="0.6"/>
+    <circle cx="81.3" cy="81.3" r="2" fill="#c4922a" opacity="0.6"/>
+
+    <text x="0" y="18" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="84" font-weight="400" fill="#fdf8f2" letter-spacing="-4">TM</text>
+
+    <line x1="-38" y1="34" x2="38" y2="34" stroke="#c4922a" stroke-width="0.8"/>
+    <rect x="-3" y="31" width="6" height="6" fill="#c4922a" transform="rotate(45, 0, 34)"/>
+
+    <text x="0" y="58" text-anchor="middle" font-family="Georgia, serif" font-size="8.5" font-weight="400" fill="#c4922a" letter-spacing="5">TREPKA MASERKA</text>
+
+    <text x="0" y="-52" text-anchor="middle" font-family="Georgia, serif" font-size="9.5" font-weight="400" fill="#c4922a" letter-spacing="6">SALON</text>
+    <line x1="-30" y1="-43" x2="30" y2="-43" stroke="#c4922a" stroke-width="0.6"/>
+  </g>
+</svg>
