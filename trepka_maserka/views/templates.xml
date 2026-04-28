@@ -120,7 +120,7 @@ div.o_footer_copyright,footer div.o_footer_copyright{display:none!important}
 
             <header class="tm-header" id="tm-header">
               <div class="tm-header-inner">
-                <div><span class="tm-logo-text">Trepka Maserka<span class="tm-logo-sub">d.o.o. &#183; Celje</span></span></div>
+                <div><img src="/trepka_maserka/static/img/logo.svg" alt="Trepka Maserka" style="height:56px;width:auto;"/></div>
                 <nav class="tm-nav">
                   <ul>
                     <li><a href="#tm-storitve">Storitve</a></li>
