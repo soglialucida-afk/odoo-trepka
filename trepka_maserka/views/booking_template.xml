@@ -136,7 +136,7 @@
           function updateSummary() {
             var bar = document.getElementById('summary-bar');
             var txt = document.getElementById('summary-text');
-            if (selectedService && selectedDate && selectedSlot) {
+            if (selectedService &amp;&amp; selectedDate &amp;&amp; selectedSlot) {
               bar.style.display = 'block';
               txt.innerHTML = '<span>' + serviceNames[selectedService] + '</span>  |  <span>' + selectedDate + '</span>  |  <span>' + selectedSlot + '</span>';
             } else {
