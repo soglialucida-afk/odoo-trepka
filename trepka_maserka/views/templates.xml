@@ -13,14 +13,6 @@
   </record>
 
   <!-- Skrij Odoo default header -->
-  <record id="trepka_remove_header" model="ir.ui.view">
-    <field name="name">trepka.remove.header</field>
-    <field name="type">qweb</field>
-    <field name="inherit_id" ref="website.layout"/>
-    <field name="arch" type="xml">
-      <xpath expr="//header" position="attributes"><attribute name="style">display:none!important</attribute></xpath>
-    </field>
-  </record>
   <record id="website.template_header_default" model="ir.ui.view">
     <field name="active" eval="False"/>
   </record>
