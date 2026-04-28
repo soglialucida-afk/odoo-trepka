@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<record id="website.template_footer_contact" model="ir.ui.view">
+    <field name="active" eval="False"/>
+</record>
+
   <!-- Skrij Odoo default header -->
   <record id="website.template_header_default" model="ir.ui.view">
     <field name="active" eval="False"/>
