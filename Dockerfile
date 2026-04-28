@@ -6,3 +6,4 @@ COPY ./trepka_maserka /usr/lib/python3/dist-packages/odoo/addons/trepka_maserka
 RUN chown -R odoo:odoo /usr/lib/python3/dist-packages/odoo/addons/trepka_maserka
 
 USER odoo
+# rebuild Tue Apr 28 19:16:53 CEST 2026
