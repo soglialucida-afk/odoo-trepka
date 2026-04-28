@@ -13,9 +13,6 @@
   </record>
 
   <!-- Skrij Odoo default header -->
-  <record id="website.template_header_default_can_edit_options" model="ir.ui.view">
-    <field name="active" eval="False"/>
-  </record>
   <record id="website.template_header_default" model="ir.ui.view">
     <field name="active" eval="False"/>
   </record>
