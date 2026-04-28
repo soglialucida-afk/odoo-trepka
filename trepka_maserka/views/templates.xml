@@ -104,7 +104,6 @@ a{text-decoration:none;color:inherit}
 .tm-book-tab:hover{background:#6e1e1c;color:white}
 @media(max-width:768px){.tm-nav{display:none}.tm-slide-title{font-size:2.2rem}.tm-slide-eyebrow{display:none}.tm-header{padding:16px 20px}}
 div.o_footer_copyright,footer div.o_footer_copyright{display:none!important}
-div.o_footer_copyright,footer div.o_footer_copyright{display:none!important}
 .o_main_navbar{display:none!important}
         </style>
       </xpath>
