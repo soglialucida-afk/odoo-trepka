@@ -261,6 +261,32 @@ a{text-decoration:none;color:inherit}
 
             <a href="/appointment" class="tm-book-tab">Rezervirajte termin</a>
 
+            <script type="text/javascript">
+(function() {
+    function init() {
+        var slides = document.querySelectorAll('.tm-slide');
+        if (!slides.length) return;
+        var cur = 0;
+        setInterval(function() {
+            slides[cur].classList.remove('active');
+            cur = (cur + 1) % slides.length;
+            slides[cur].classList.add('active');
+        }, 5000);
+        var header = document.querySelector('.tm-header');
+        if (header) {
+            window.addEventListener('scroll', function() {
+                header.classList.toggle('shrink', window.scrollY > 50);
+            });
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+            </script>
+
           </div>
         </t>
       </t>
