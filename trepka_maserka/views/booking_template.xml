@@ -1,115 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <template id="booking_page" name="Rezervacija">
+  <!-- BASE LAYOUT — skupni header, footer, CSS -->
+  <template id="base_layout" name="Trepka Base Layout">
     <t t-call="website.layout">
       <t t-set="no_header" t-value="true"/>
       <t t-set="no_footer" t-value="true"/>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
       <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0d0d0d; color: #f0ede8; font-family: 'Georgia', serif; }
-        .bk-header { background: #0d0d0d; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2a2a2a; }
-        .bk-logo { color: #c9a84c; font-size: 1.4rem; letter-spacing: 3px; text-decoration: none; }
-        .bk-back { color: #888; font-size: 0.85rem; text-decoration: none; letter-spacing: 1px; }
-        .bk-back:hover { color: #c9a84c; }
-        .bk-wrap { max-width: 680px; margin: 60px auto; padding: 0 24px 80px; }
-        .bk-title { font-size: 2rem; color: #c9a84c; letter-spacing: 2px; margin-bottom: 8px; }
-        .bk-sub { color: #888; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 48px; }
-        .bk-section { margin-bottom: 40px; }
-        .bk-label { display: block; font-size: 0.75rem; letter-spacing: 2px; color: #c9a84c; text-transform: uppercase; margin-bottom: 16px; }
-        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .service-card { border: 1px solid #2a2a2a; padding: 20px 12px; text-align: center; cursor: pointer; transition: all 0.2s; background: #111; }
-        .service-card:hover { border-color: #c9a84c; }
-        .service-card.active { border-color: #8b0000; background: #1a0a0a; }
-        .service-name { font-size: 0.85rem; color: #f0ede8; margin-bottom: 6px; }
-        .service-duration { font-size: 0.75rem; color: #888; letter-spacing: 1px; }
-        .date-input { background: #111; border: 1px solid #2a2a2a; color: #f0ede8; padding: 14px 18px; font-size: 1rem; font-family: inherit; width: 100%; outline: none; }
-        .date-input:focus { border-color: #c9a84c; }
-        .date-hint { font-size: 0.75rem; color: #555; margin-top: 8px; }
-        #slots-section { display: none; }
-        .slots-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-        .slot-btn { border: 1px solid #2a2a2a; background: #111; color: #f0ede8; padding: 10px 20px; font-family: inherit; font-size: 0.9rem; cursor: pointer; letter-spacing: 1px; transition: all 0.2s; }
-        .slot-btn:hover { border-color: #c9a84c; color: #c9a84c; }
-        .slot-btn.active { background: #8b0000; border-color: #8b0000; color: #fff; }
-        #slots-loading { color: #555; font-size: 0.85rem; display: none; }
-        #slots-empty { color: #555; font-size: 0.85rem; display: none; }
-        #contact-section { display: none; }
-        .form-input { background: #111; border: 1px solid #2a2a2a; color: #f0ede8; padding: 14px 18px; font-size: 0.95rem; font-family: inherit; width: 100%; outline: none; margin-bottom: 14px; }
-        .form-input:focus { border-color: #c9a84c; }
-        textarea.form-input { resize: vertical; min-height: 100px; }
-        .error-msg { background: #1a0000; border: 1px solid #8b0000; color: #ff6b6b; padding: 14px 18px; font-size: 0.85rem; margin-bottom: 24px; }
-        .bk-submit { background: #8b0000; color: #fff; border: none; padding: 18px 48px; font-family: inherit; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; width: 100%; margin-top: 8px; }
-        .bk-submit:hover { background: #a00000; }
-        .summary-bar { background: #111; border: 1px solid #2a2a2a; padding: 16px 20px; margin-bottom: 32px; font-size: 0.85rem; color: #888; display: none; }
-        .summary-bar span { color: #c9a84c; }
-        @media (max-width: 600px) { .service-grid { grid-template-columns: 1fr; } .bk-title { font-size: 1.5rem; } }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:"Lato",sans-serif;color:#3d1a0e;background:#f5ede0;overflow-x:hidden}
+        a{text-decoration:none;color:inherit}
+        .orn-rule{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0}
+        .orn-rule::before,.orn-rule::after{content:"";flex:1;height:1px;background:#c4922a;max-width:70px}
+        .orn-diamond{width:7px;height:7px;background:#c4922a;transform:rotate(45deg);flex-shrink:0}
+        .orn-header{text-align:center;margin-bottom:48px}
+        .orn-header .eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#8a2926;display:block;margin-bottom:10px}
+        .orn-header h2{font-family:"Playfair Display",serif;font-style:italic;font-size:2.1rem;font-weight:400;color:#3d1a0e;margin:0}
+        .orn-header p{font-size:14px;color:#5a3e35;margin-top:12px;line-height:1.75}
+        .btn-tm-primary{display:inline-block;font-weight:700;letter-spacing:2px;font-size:11px;cursor:pointer;text-transform:uppercase;border-radius:0;background:#8a2926;color:white;padding:14px 38px;border:2px solid #8a2926;transition:background .25s}
+        .btn-tm-primary:hover{background:#6e1e1c;color:white}
+        .tm-header{background:#fdf8f2;border-bottom:1px solid #c4a09a;padding:18px 48px}
+        .tm-header-inner{display:flex;justify-content:space-between;align-items:center;max-width:1300px;margin:0 auto}
+        .tm-logo-text{font-family:"Playfair Display",serif;font-style:italic;font-size:22px;color:#8a2926;letter-spacing:1px;line-height:1}
+        .tm-logo-sub{display:block;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8a7068;margin-top:3px}
+        .tm-nav ul{display:flex;list-style:none;gap:36px;margin:0;padding:0}
+        .tm-nav a{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#3d1a0e;transition:color .25s}
+        .tm-nav a:hover{color:#8a2926}
+        .tm-footer{background:#150904;padding:56px 0 28px}
+        .tm-footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(196,146,42,.2);max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px}
+        .tm-footer h3{font-family:"Playfair Display",serif;font-style:italic;font-size:1rem;color:#c4922a;font-weight:400;margin-bottom:14px}
+        .tm-footer p,.tm-footer a{font-size:13px;line-height:2.1;color:#9a8878}
+        .tm-footer a:hover{color:#c4922a}
+        .tm-copyright{text-align:center;padding-top:24px;font-size:11px;color:#5a4a42;letter-spacing:1px;max-width:1200px;margin:0 auto}
+        .tm-social{display:flex;gap:16px;margin-top:8px}
+        .tm-social a{font-size:18px;color:#9a8878;transition:color .2s}
+        .tm-social a:hover{color:#c4922a}
+        .tm-container{max-width:1200px;margin:0 auto;padding:0 24px}
+        @media(max-width:768px){.tm-nav{display:none}.tm-header{padding:16px 20px}}
       </style>
 
-      <div class="bk-header">
-        <a href="/" class="bk-logo">TM</a>
-        <a href="/" class="bk-back">&#8592; Nazaj na stran</a>
+      <header class="tm-header">
+        <div class="tm-header-inner">
+          <a href="/"><img src="/trepka_maserka/static/img/logo.svg" alt="Trepka Maserka" style="height:48px;width:auto;"/></a>
+          <nav class="tm-nav">
+            <ul>
+              <li><a href="/#tm-storitve">Storitve</a></li>
+              <li><a href="/#tm-o-nas">O nas</a></li>
+              <li><a href="/#tm-cenik">Cenik</a></li>
+              <li><a href="/#tm-kontakt">Kontakt</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <t t-out="0"/>
+
+      <footer class="tm-footer" id="tm-kontakt">
+        <div class="tm-footer-grid">
+          <div>
+            <h3>Trepka Maserka d.o.o.</h3>
+            <p>Kosovelova ulica 7<br/>3000 Celje, Slovenija</p>
+            <p style="margin-top:10px;"><a href="tel:+38634567890">+386 (0)3 456 7890</a><br/><a href="mailto:info@trepka-maserka.si">info@trepka-maserka.si</a></p>
+          </div>
+          <div>
+            <h3>Delovni &#269;as</h3>
+            <p>Pon&#8211;Pet: 9:00&#8211;20:00<br/>Sobota: 9:00&#8211;15:00<br/>Nedelja: Zaprto</p>
+          </div>
+          <div>
+            <h3>Sledite nam</h3>
+            <div class="tm-social">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="tm-copyright"><p>&#169; 2025 &#183; Trepka Maserka &#183; Vse pravice pridr&#382;ane</p></div>
+      </footer>
+
+    </t>
+  </template>
+
+  <!-- BOOKING PAGE -->
+  <template id="booking_page" name="Rezervacija">
+    <t t-call="trepka_maserka.base_layout">
+      <style>
+        .bk-wrap{max-width:900px;margin:64px auto;padding:0 24px 80px}
+        .bk-hero{background:#fdf8f2;border-bottom:1px solid #e8d8d0;padding:48px 0 40px;text-align:center;margin-bottom:0}
+        .bk-section{background:#fdf8f2;padding:48px 0}
+        .bk-section-alt{background:#f5ede0;padding:48px 0}
+        .bk-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#8a2926;display:block;margin-bottom:20px;text-align:center}
+        .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;padding:0 24px}
+        .service-card{background:#fdf8f2;border:2px solid #8a2926;padding:3px;cursor:pointer;transition:transform .25s}
+        .service-card:hover{transform:translateY(-4px)}
+        .service-card.active{background:#8a2926}
+        .service-card.active .service-card-in{border-color:#8a2926}
+        .service-card.active .service-name{color:white}
+        .service-card.active .service-duration{color:rgba(255,255,255,.8)}
+        .service-card.active .service-icon{border-color:white}
+        .service-card.active .service-icon i{color:white}
+        .service-card-in{border:0.5px solid #c4a09a;padding:28px 20px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+        .service-icon{width:80px;height:80px;border-radius:50%;background:white;border:1.5px solid #8a2926;display:flex;align-items:center;justify-content:center}
+        .service-icon i{font-size:28px;color:#8a2926}
+        .service-gem{width:8px;height:8px;background:#c4922a;transform:rotate(45deg)}
+        .service-name{font-family:"Playfair Display",serif;font-style:italic;font-size:1rem;font-weight:400;color:#8a2926}
+        .service-rule{width:24px;height:1px;background:#c4922a}
+        .service-duration{font-size:12px;color:#5a3e35;letter-spacing:1px}
+        .date-wrap{max-width:400px;margin:0 auto;padding:0 24px}
+        .date-input{background:white;border:2px solid #c4a09a;color:#3d1a0e;padding:14px 18px;font-size:1rem;font-family:"Lato",sans-serif;width:100%;outline:none;transition:border-color .2s}
+        .date-input:focus{border-color:#8a2926}
+        .date-hint{font-size:12px;color:#8a7068;margin-top:8px;text-align:center;letter-spacing:0.5px}
+        #slots-section{display:none}
+        .slots-wrap{max-width:900px;margin:0 auto;padding:0 24px}
+        .slots-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+        .slot-btn{border:2px solid #c4a09a;background:white;color:#3d1a0e;padding:12px 22px;font-family:"Lato",sans-serif;font-size:13px;cursor:pointer;letter-spacing:1px;transition:all .2s;font-weight:700}
+        .slot-btn:hover{border-color:#8a2926;color:#8a2926}
+        .slot-btn.active{background:#8a2926;border-color:#8a2926;color:white}
+        #slots-loading{color:#8a7068;font-size:14px;text-align:center}
+        #slots-empty{color:#8a7068;font-size:14px;text-align:center}
+        #contact-section{display:none}
+        .contact-wrap{max-width:600px;margin:0 auto;padding:0 24px}
+        .form-input{background:white;border:2px solid #c4a09a;color:#3d1a0e;padding:14px 18px;font-size:0.95rem;font-family:"Lato",sans-serif;width:100%;outline:none;margin-bottom:14px;transition:border-color .2s}
+        .form-input:focus{border-color:#8a2926}
+        textarea.form-input{resize:vertical;min-height:100px}
+        .error-msg{background:#fff0f0;border:2px solid #8a2926;color:#8a2926;padding:14px 18px;font-size:14px;margin-bottom:24px;text-align:center}
+        .bk-submit{background:#8a2926;color:white;border:none;padding:18px 48px;font-family:"Lato",sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;width:100%;margin-top:8px;font-weight:700;transition:background .2s}
+        .bk-submit:hover{background:#6e1e1c}
+        .summary-bar{background:#3d1a0e;color:#fdf8f2;padding:18px 24px;text-align:center;font-size:13px;letter-spacing:1px;display:none;max-width:900px;margin:0 auto 0}
+        .summary-bar span{color:#c4922a;font-weight:700}
+        @media(max-width:600px){.service-grid{grid-template-columns:1fr}}
+      </style>
+
+      <!-- Hero -->
+      <div class="bk-hero">
+        <div class="orn-header">
+          <span class="eyebrow">Salon Trepka Maserka</span>
+          <div class="orn-rule"><div class="orn-diamond"></div></div>
+          <h2>Rezervacija termina</h2>
+          <p>Izberite storitev, datum in termin</p>
+        </div>
       </div>
 
-      <div class="bk-wrap">
-        <h1 class="bk-title">Rezervacija termina</h1>
-        <p class="bk-sub">Izberite storitev, datum in termin</p>
-
-        <t t-if="error">
+      <t t-if="error">
+        <div class="bk-section">
           <div class="error-msg"><t t-esc="error"/></div>
-        </t>
+        </div>
+      </t>
 
-        <form action="/rezervacija/submit" method="POST" id="booking-form">
-          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-          <input type="hidden" name="time_slot" id="selected-slot-input"/>
-          <input type="hidden" name="booking_date" id="booking-date-hidden"/>
-          <input type="hidden" name="service" id="selected-service-input"/>
+      <form action="/rezervacija/submit" method="POST" id="booking-form">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <input type="hidden" name="time_slot" id="selected-slot-input"/>
+        <input type="hidden" name="booking_date" id="booking-date-hidden"/>
+        <input type="hidden" name="service" id="selected-service-input"/>
 
-          <div class="bk-section">
-            <span class="bk-label">01 &#8212; Storitev</span>
-            <div class="service-grid" id="service-grid">
-              <div class="service-card" data-service="relax_45">
+        <!-- 01 Storitev -->
+        <div class="bk-section">
+          <span class="bk-label">01 &#8212; Izberite storitev</span>
+          <div class="service-grid" id="service-grid">
+            <div class="service-card" data-service="relax_45">
+              <div class="service-card-in">
+                <div class="service-icon"><i class="fas fa-spa"></i></div>
+                <div class="service-gem"></div>
                 <div class="service-name">Relaxacijska masa&#382;a</div>
+                <div class="service-rule"></div>
                 <div class="service-duration">45 min</div>
               </div>
-              <div class="service-card" data-service="swedish_60">
+            </div>
+            <div class="service-card" data-service="swedish_60">
+              <div class="service-card-in">
+                <div class="service-icon"><i class="fas fa-leaf"></i></div>
+                <div class="service-gem"></div>
                 <div class="service-name">&#352;vedska masa&#382;a</div>
+                <div class="service-rule"></div>
                 <div class="service-duration">60 min</div>
               </div>
-              <div class="service-card" data-service="sports_90">
+            </div>
+            <div class="service-card" data-service="sports_90">
+              <div class="service-card-in">
+                <div class="service-icon"><i class="fas fa-dumbbell"></i></div>
+                <div class="service-gem"></div>
                 <div class="service-name">&#352;portna masa&#382;a</div>
+                <div class="service-rule"></div>
                 <div class="service-duration">90 min</div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="bk-section" id="date-section" style="display:none">
-            <span class="bk-label">02 &#8212; Datum</span>
+        <!-- 02 Datum -->
+        <div class="bk-section-alt" id="date-section" style="display:none">
+          <span class="bk-label">02 &#8212; Izberite datum</span>
+          <div class="date-wrap">
             <input type="date" class="date-input" id="date-picker"/>
             <p class="date-hint">Delamo ponedeljek&#8211;sobota</p>
           </div>
+        </div>
 
-          <div class="bk-section" id="slots-section">
-            <span class="bk-label">03 &#8212; Termin</span>
+        <!-- 03 Termin -->
+        <div class="bk-section" id="slots-section">
+          <span class="bk-label">03 &#8212; Izberite termin</span>
+          <div class="slots-wrap">
             <p id="slots-loading">Nalagam proste termine&#8230;</p>
             <p id="slots-empty">Za ta dan ni ve&#269; prostih terminov.</p>
             <div class="slots-grid" id="slots-grid"></div>
           </div>
+        </div>
 
-          <div class="summary-bar" id="summary-bar">
-            <span id="summary-text"></span>
-          </div>
+        <!-- Povzetek -->
+        <div class="summary-bar" id="summary-bar">
+          <span id="summary-text"></span>
+        </div>
 
-          <div class="bk-section" id="contact-section">
-            <span class="bk-label">04 &#8212; Va&#353;i podatki</span>
+        <!-- 04 Podatki -->
+        <div class="bk-section-alt" id="contact-section">
+          <span class="bk-label">04 &#8212; Va&#353;i podatki</span>
+          <div class="contact-wrap">
             <input type="text" name="name" class="form-input" placeholder="Ime in priimek *" required="1"/>
             <input type="email" name="email" class="form-input" placeholder="E-mail *" required="1"/>
             <input type="tel" name="phone" class="form-input" placeholder="Telefon"/>
             <textarea name="notes" class="form-input" placeholder="Opombe (neobvezno)"></textarea>
             <button type="submit" class="bk-submit">Potrdi rezervacijo</button>
           </div>
+        </div>
 
-        </form>
-      </div>
+      </form>
 
       <script>
         (function() {
@@ -117,139 +232,132 @@
           var selectedDate = null;
           var selectedSlot = null;
           var serviceNames = {
-            'relax_45': 'Relaxacijska masaza 45 min',
-            'swedish_60': 'Svedska masaza 60 min',
-            'sports_90': 'Sportna masaza 90 min'
+            relax_45: "Relaxacijska masaza 45 min",
+            swedish_60: "Svedska masaza 60 min",
+            sports_90: "Sportna masaza 90 min"
           };
 
           function clearSlots() {
-            document.getElementById('slots-section').style.display = 'none';
-            document.getElementById('slots-grid').innerHTML = '';
+            document.getElementById("slots-section").style.display = "none";
+            document.getElementById("slots-grid").innerHTML = "";
             selectedSlot = null;
-            document.getElementById('selected-slot-input').value = '';
+            document.getElementById("selected-slot-input").value = "";
           }
-
           function clearContact() {
-            document.getElementById('contact-section').style.display = 'none';
+            document.getElementById("contact-section").style.display = "none";
+            document.getElementById("summary-bar").style.display = "none";
           }
-
           function updateSummary() {
-            var bar = document.getElementById('summary-bar');
-            var txt = document.getElementById('summary-text');
-            if (selectedService &amp;&amp; selectedDate &amp;&amp; selectedSlot) {
-              bar.style.display = 'block';
-              txt.innerHTML = '<span>' + serviceNames[selectedService] + '</span>  |  <span>' + selectedDate + '</span>  |  <span>' + selectedSlot + '</span>';
+            var bar = document.getElementById("summary-bar");
+            var txt = document.getElementById("summary-text");
+            if (selectedService && selectedDate && selectedSlot) {
+              bar.style.display = "block";
+              txt.innerHTML = "<span>" + serviceNames[selectedService] + "</span> &nbsp;|&nbsp; <span>" + selectedDate + "</span> &nbsp;|&nbsp; <span>" + selectedSlot + "</span>";
             } else {
-              bar.style.display = 'none';
+              bar.style.display = "none";
             }
           }
-
           function loadSlots() {
             if (!selectedService || !selectedDate) return;
-            var section = document.getElementById('slots-section');
-            var grid = document.getElementById('slots-grid');
-            var loading = document.getElementById('slots-loading');
-            var empty = document.getElementById('slots-empty');
-            section.style.display = 'block';
-            loading.style.display = 'block';
-            empty.style.display = 'none';
-            grid.innerHTML = '';
+            var section = document.getElementById("slots-section");
+            var grid = document.getElementById("slots-grid");
+            var loading = document.getElementById("slots-loading");
+            var empty = document.getElementById("slots-empty");
+            section.style.display = "block";
+            loading.style.display = "block";
+            empty.style.display = "none";
+            grid.innerHTML = "";
             selectedSlot = null;
-            document.getElementById('selected-slot-input').value = '';
+            document.getElementById("selected-slot-input").value = "";
             clearContact();
-            fetch('/rezervacija/slots', {
-              method: 'POST',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({jsonrpc: '2.0', method: 'call', id: 1, params: {date_str: selectedDate, service: selectedService}})
+            fetch("/rezervacija/slots", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({jsonrpc: "2.0", method: "call", id: 1, params: {date_str: selectedDate, service: selectedService}})
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
-              loading.style.display = 'none';
+              loading.style.display = "none";
               var slots = (data.result || {}).slots || [];
-              if (slots.length === 0) { empty.style.display = 'block'; return; }
+              if (slots.length === 0) { empty.style.display = "block"; return; }
               slots.forEach(function(slot) {
-                var btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'slot-btn';
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "slot-btn";
                 btn.textContent = slot;
-                btn.addEventListener('click', function() {
-                  document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('active'); });
-                  btn.classList.add('active');
+                btn.addEventListener("click", function() {
+                  document.querySelectorAll(".slot-btn").forEach(function(b) { b.classList.remove("active"); });
+                  btn.classList.add("active");
                   selectedSlot = slot;
-                  document.getElementById('selected-slot-input').value = slot;
-                  document.getElementById('contact-section').style.display = 'block';
+                  document.getElementById("selected-slot-input").value = slot;
+                  document.getElementById("contact-section").style.display = "block";
                   updateSummary();
                 });
                 grid.appendChild(btn);
               });
             })
-            .catch(function() { loading.style.display = 'none'; empty.style.display = 'block'; });
+            .catch(function() { loading.style.display = "none"; empty.style.display = "block"; });
           }
 
-          document.querySelectorAll('.service-card').forEach(function(card) {
-            card.addEventListener('click', function() {
-              document.querySelectorAll('.service-card').forEach(function(c) { c.classList.remove('active'); });
-              card.classList.add('active');
-              selectedService = card.getAttribute('data-service');
-              document.getElementById('selected-service-input').value = selectedService;
-              document.getElementById('date-section').style.display = 'block';
+          document.querySelectorAll(".service-card").forEach(function(card) {
+            card.addEventListener("click", function() {
+              document.querySelectorAll(".service-card").forEach(function(c) { c.classList.remove("active"); });
+              card.classList.add("active");
+              selectedService = card.getAttribute("data-service");
+              document.getElementById("selected-service-input").value = selectedService;
+              document.getElementById("date-section").style.display = "block";
               clearSlots();
               clearContact();
               updateSummary();
             });
           });
 
-          var datePicker = document.getElementById('date-picker');
-          datePicker.min = new Date().toISOString().split('T')[0];
-          datePicker.addEventListener('change', function() {
+          var datePicker = document.getElementById("date-picker");
+          datePicker.min = new Date().toISOString().split("T")[0];
+          datePicker.addEventListener("change", function() {
             var val = datePicker.value;
             if (!val) return;
             var d = new Date(val);
             if (d.getDay() === 0) {
-              alert('Nedelja ni delovni dan. Prosimo izberite drug datum.');
-              datePicker.value = '';
+              alert("Nedelja ni delovni dan. Prosimo izberite drug datum.");
+              datePicker.value = "";
               return;
             }
             selectedDate = val;
-            document.getElementById('booking-date-hidden').value = val;
+            document.getElementById("booking-date-hidden").value = val;
             loadSlots();
           });
-
         })();
       </script>
 
     </t>
   </template>
 
+  <!-- SUCCESS PAGE -->
   <template id="booking_success" name="Rezervacija potrjena">
-    <t t-call="website.layout">
-      <t t-set="no_header" t-value="true"/>
-      <t t-set="no_footer" t-value="true"/>
+    <t t-call="trepka_maserka.base_layout">
       <style>
-        body { background: #0d0d0d; color: #f0ede8; font-family: 'Georgia', serif; }
-        .bk-header { background: #0d0d0d; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2a2a2a; }
-        .bk-logo { color: #c9a84c; font-size: 1.4rem; letter-spacing: 3px; text-decoration: none; }
-        .success-wrap { max-width: 560px; margin: 80px auto; padding: 0 24px; text-align: center; }
-        .success-icon { font-size: 3rem; margin-bottom: 24px; color: #c9a84c; }
-        .success-title { font-size: 1.8rem; color: #c9a84c; letter-spacing: 2px; margin-bottom: 16px; }
-        .success-detail { color: #888; font-size: 0.9rem; line-height: 1.8; margin-bottom: 40px; }
-        .success-detail strong { color: #f0ede8; }
-        .btn-home { display: inline-block; border: 1px solid #8b0000; color: #f0ede8; padding: 14px 40px; text-decoration: none; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; }
-        .btn-home:hover { background: #8b0000; }
+        .success-wrap{max-width:560px;margin:80px auto;padding:0 24px 80px;text-align:center}
+        .success-icon{font-size:3rem;margin-bottom:24px;color:#c4922a}
+        .success-title{font-family:"Playfair Display",serif;font-style:italic;font-size:2rem;color:#8a2926;font-weight:400;margin-bottom:16px}
+        .success-detail{color:#5a3e35;font-size:14px;line-height:2;margin-bottom:40px}
+        .success-detail strong{color:#3d1a0e}
+        .btn-back{display:inline-block;border:2px solid #8a2926;color:#3d1a0e;padding:14px 40px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;transition:background .2s}
+        .btn-back:hover{background:#8a2926;color:white}
       </style>
-      <div class="bk-header">
-        <a href="/" class="bk-logo">TM</a>
-      </div>
-      <div class="success-wrap">
-        <div class="success-icon">&#10003;</div>
-        <h1 class="success-title">Rezervacija potrjena</h1>
-        <p class="success-detail">
-          <strong><t t-esc="booking_name"/></strong>, va&#353;a rezervacija je bila uspe&#353;no sprejeta.<br/>
-          <strong><t t-esc="service_name"/></strong><br/>
-          <strong><t t-esc="booking_date"/></strong> ob <strong><t t-esc="time_slot"/></strong><br/><br/>
-          Potrditev prejmete na va&#353; e-mail naslov.
-        </p>
-        <a href="/" class="btn-home">Nazaj na stran</a>
+      <div style="background:#fdf8f2;min-height:60vh;padding-top:64px">
+        <div class="success-wrap">
+          <div class="success-icon">&#10003;</div>
+          <div class="orn-rule"><div class="orn-diamond"></div></div>
+          <h1 class="success-title">Rezervacija potrjena</h1>
+          <p class="success-detail">
+            <strong><t t-esc="booking_name"/></strong>, va&#353;a rezervacija je bila uspe&#353;no sprejeta.<br/>
+            <strong><t t-esc="service_name"/></strong><br/>
+            <strong><t t-esc="booking_date"/></strong> ob <strong><t t-esc="time_slot"/></strong><br/><br/>
+            Potrditev prejmete na va&#353; e-mail naslov.
+          </p>
+          <a href="/" class="btn-back">Nazaj na stran</a>
+        </div>
       </div>
     </t>
   </template>
