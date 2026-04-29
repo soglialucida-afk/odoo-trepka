@@ -8,7 +8,7 @@ class TrepkaBlogPost(models.Model):
     name = fields.Char("Naslov", required=True)
     slug = fields.Char("URL slug", required=True, help="Npr. moja-objava (brez presledkov)")
     subtitle = fields.Char("Podnaslov")
-    body = fields.Text("Vsebina", required=True)
+    body = fields.Text("Vsebina")
     image = fields.Image("Naslovna slika", max_width=1200, max_height=800)
     date_published = fields.Date("Datum objave", required=True)
     author = fields.Char("Avtor", default="Trepka Maserka")
