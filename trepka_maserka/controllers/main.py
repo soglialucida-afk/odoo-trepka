@@ -122,3 +122,20 @@ class TrepkaController(http.Controller):
             'booking_date': booking_date,
             'time_slot': time_slot,
         })
+
+    @http.route("/blog", type="http", auth="public", website=True)
+    def blog_index(self, **kwargs):
+        posts = request.env["trepka.blog.post"].sudo().search([
+            ("is_published", "=", True)
+        ])
+        return request.render("trepka_maserka.blog_index", {"posts": posts})
+
+    @http.route("/blog/<string:slug>", type="http", auth="public", website=True)
+    def blog_post(self, slug, **kwargs):
+        post = request.env["trepka.blog.post"].sudo().search([
+            ("slug", "=", slug),
+            ("is_published", "=", True)
+        ], limit=1)
+        if not post:
+            return request.not_found()
+        return request.render("trepka_maserka.blog_post", {"post": post})
