@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_trepka_booking,trepka.booking access,model_trepka_booking,,1,1,1,1
+access_trepka_blog_post,trepka.blog.post access,model_trepka_blog_post,,1,1,1,1

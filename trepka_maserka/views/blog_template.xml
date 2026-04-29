@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- BLOG INDEX -->
+  <template id="blog_index" name="Blog">
+    <t t-call="trepka_maserka.base_layout">
+      <style>
+        .blog-hero{background:#fdf8f2;border-bottom:1px solid #e8d8d0;padding:48px 0 40px;text-align:center}
+        .blog-wrap{max-width:1100px;margin:64px auto;padding:0 24px 80px}
+        .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+        .blog-card{background:#fdf8f2;border:2px solid #8a2926;padding:3px;transition:transform .25s}
+        .blog-card:hover{transform:translateY(-4px)}
+        .blog-card-in{border:0.5px solid #c4a09a;overflow:hidden}
+        .blog-card-img{width:100%;height:200px;object-fit:cover;display:block}
+        .blog-card-img-placeholder{width:100%;height:200px;background:#f5ede0;display:flex;align-items:center;justify-content:center}
+        .blog-card-img-placeholder i{font-size:48px;color:#c4a09a}
+        .blog-card-body{padding:24px}
+        .blog-card-cat{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8a2926;margin-bottom:8px;display:block}
+        .blog-card-title{font-family:"Playfair Display",serif;font-style:italic;font-size:1.2rem;color:#3d1a0e;margin-bottom:8px;font-weight:400}
+        .blog-card-sub{font-size:13px;color:#5a3e35;line-height:1.7;margin-bottom:16px}
+        .blog-card-meta{font-size:11px;color:#8a7068;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center}
+        .blog-card-link{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a2926;text-decoration:none}
+        .blog-card-link:hover{color:#6e1e1c}
+        .blog-empty{text-align:center;color:#8a7068;font-size:14px;padding:48px 0}
+      </style>
+
+      <div class="blog-hero">
+        <div class="orn-header">
+          <span class="eyebrow">Trepka Maserka</span>
+          <div class="orn-rule"><div class="orn-diamond"></div></div>
+          <h2>Blog</h2>
+          <p>Nasveti, novosti in zgodbe iz salona</p>
+        </div>
+      </div>
+
+      <div class="blog-wrap">
+        <t t-if="posts">
+          <div class="blog-grid">
+            <t t-foreach="posts" t-as="post">
+              <div class="blog-card">
+                <div class="blog-card-in">
+                  <t t-if="post.image">
+                    <img class="blog-card-img" t-attf-src="/web/image/trepka.blog.post/#{post.id}/image" t-att-alt="post.name"/>
+                  </t>
+                  <t t-else="">
+                    <div class="blog-card-img-placeholder"><i class="fas fa-spa"></i></div>
+                  </t>
+                  <div class="blog-card-body">
+                    <t t-if="post.category">
+                      <span class="blog-card-cat"><t t-esc="post.category"/></span>
+                    </t>
+                    <div class="blog-card-title"><t t-esc="post.name"/></div>
+                    <t t-if="post.subtitle">
+                      <div class="blog-card-sub"><t t-esc="post.subtitle"/></div>
+                    </t>
+                    <div class="blog-card-meta">
+                      <span><t t-esc="post.date_published"/> &#183; <t t-esc="post.author"/></span>
+                      <a t-attf-href="/blog/#{post.slug}" class="blog-card-link">Preberi &#8594;</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </div>
+        </t>
+        <t t-else="">
+          <div class="blog-empty">
+            <p>Trenutno ni objav. Kmalu bo kaj novega.</p>
+          </div>
+        </t>
+      </div>
+
+    </t>
+  </template>
+
+  <!-- BLOG POST -->
+  <template id="blog_post" name="Blog objava">
+    <t t-call="trepka_maserka.base_layout">
+      <style>
+        .post-hero{background:#fdf8f2;border-bottom:1px solid #e8d8d0;padding:56px 0 48px;text-align:center}
+        .post-hero-cat{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#8a2926;display:block;margin-bottom:12px}
+        .post-hero-title{font-family:"Playfair Display",serif;font-style:italic;font-size:2.4rem;font-weight:400;color:#3d1a0e;margin:0 auto;max-width:760px;line-height:1.3}
+        .post-hero-sub{font-size:15px;color:#5a3e35;margin-top:16px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.75}
+        .post-hero-meta{font-size:11px;color:#8a7068;letter-spacing:1px;margin-top:20px}
+        .post-img-wrap{max-width:900px;margin:0 auto;padding:0 24px}
+        .post-img{width:100%;max-height:480px;object-fit:cover;display:block;border:2px solid #8a2926;padding:3px}
+        .post-img-in{border:0.5px solid #c4a09a}
+        .post-wrap{max-width:760px;margin:48px auto 80px;padding:0 24px}
+        .post-body{font-size:15px;line-height:1.9;color:#3d1a0e}
+        .post-body h2,.post-body h3{font-family:"Playfair Display",serif;font-style:italic;color:#8a2926;font-weight:400;margin:32px 0 12px}
+        .post-body p{margin-bottom:20px}
+        .post-body img{max-width:100%;border:1px solid #c4a09a}
+        .post-back{display:inline-block;border:2px solid #8a2926;color:#3d1a0e;padding:12px 32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;transition:background .2s;margin-top:40px}
+        .post-back:hover{background:#8a2926;color:white}
+      </style>
+
+      <div class="post-hero">
+        <div class="tm-container">
+          <t t-if="post.category">
+            <span class="post-hero-cat"><t t-esc="post.category"/></span>
+          </t>
+          <div class="orn-rule"><div class="orn-diamond"></div></div>
+          <h1 class="post-hero-title"><t t-esc="post.name"/></h1>
+          <t t-if="post.subtitle">
+            <p class="post-hero-sub"><t t-esc="post.subtitle"/></p>
+          </t>
+          <p class="post-hero-meta"><t t-esc="post.date_published"/> &#183; <t t-esc="post.author"/></p>
+        </div>
+      </div>
+
+      <t t-if="post.image">
+        <div style="background:#f5ede0;padding:40px 0">
+          <div class="post-img-wrap">
+            <div class="post-img">
+              <div class="post-img-in">
+                <img t-attf-src="/web/image/trepka.blog.post/#{post.id}/image" t-att-alt="post.name" style="width:100%;display:block"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </t>
+
+      <div class="post-wrap">
+        <div class="post-body" t-out="post.body"/>
+        <a href="/blog" class="post-back">&#8592; Nazaj na blog</a>
+      </div>
+
+    </t>
+  </template>
+
+</odoo>

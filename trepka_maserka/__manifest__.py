@@ -9,6 +9,8 @@
         'views/security/ir.model.access.csv',
         'views/templates.xml',
         'views/booking_template.xml',
+        'views/blog_backend.xml',
+        'views/blog_template.xml',
         'data/website_data.xml',
     ],
     'assets': {
