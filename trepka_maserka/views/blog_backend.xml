@@ -23,7 +23,7 @@
             <field name="image" widget="image"/>
           </group>
           <group string="Vsebina">
-            <field name="body" widget="html" nolabel="1"/>
+            <field name="body" widget="text" nolabel="1"/>
           </group>
         </sheet>
       </form>
